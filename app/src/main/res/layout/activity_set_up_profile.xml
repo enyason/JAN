@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nexdev.enyason.jan.SetUpProfileActivity">
+
+
+
+
+    <RelativeLayout
+
+        android:layout_marginTop="50dp"
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_width="100dp"
+            android:src="@drawable/jan_logo"
+            android:layout_height="100dp" />
+
+
+        <RelativeLayout
+            android:layout_marginRight="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:src="@drawable/enya"
+                android:id="@+id/image_view_student_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                />
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_photo_camera"/>
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+
+        android:orientation="vertical"
+
+        android:layout_below="@id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:fontFamily="sans-serif-medium"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:text="Set Up Account"
+                android:layout_height="wrap_content" />
+
+
+            <EditText
+                android:text="test"
+                android:textColor="#000"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:hint="sur name"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_sur_name_set_up"/>
+
+            <EditText
+                android:text="test"
+
+                android:textColor="#000"
+                android:fontFamily="sans-serif-medium"
+                android:hint="other names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_first_name_set_up"/>
+
+
+            <EditText
+                android:text="test"
+
+                android:textColor="#000"
+                android:fontFamily="sans-serif-medium"
+                android:hint="phone"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_phone_set_up"/>
+
+            <EditText
+                android:text="test"
+
+                android:textColor="#000"
+                android:fontFamily="sans-serif-medium"
+                android:hint="address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_adress_set_up"/>
+
+            <EditText
+                android:text="test"
+
+                android:textColor="#000"
+                android:fontFamily="sans-serif-medium"
+                android:hint="school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_school_set_up"/>
+
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_set_up_profile"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:text="Set Up Account"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

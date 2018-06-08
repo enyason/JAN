@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "657144565161",
+    "firebase_url": "https://ja-nigeria.firebaseio.com",
+    "project_id": "ja-nigeria",
+    "storage_bucket": "ja-nigeria.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657144565161:android:7aa0c29efe95ad42",
+        "android_client_info": {
+          "package_name": "com.nexdev.enyason.jan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657144565161-cjcscrk2blqsm4t97lcrpub27d7s56ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nexdev.enyason.jan",
+            "certificate_hash": "6f80726f7df8a5082c092e363b478139cab21720"
+          }
+        },
+        {
+          "client_id": "657144565161-mfenck4ucn7riio7s1mlj31uk8or3met.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "657144565161-mfenck4ucn7riio7s1mlj31uk8or3met.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI8wRBGz5a-Q8UYKE4x8ONaCvSnlEWtm8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657144565161-mfenck4ucn7riio7s1mlj31uk8or3met.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
