@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ public class SetUpProfileActivity extends AppCompatActivity {
 
 
     String userUid;
-    String email,password;
+    String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,10 @@ public class SetUpProfileActivity extends AppCompatActivity {
 
 
         db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+
 
 
         progressDialog = new ProgressDialog(this);
@@ -88,10 +93,10 @@ public class SetUpProfileActivity extends AppCompatActivity {
                 // Create a new user with a first and last name
                 Map<String, Object> user = new HashMap<>();
                 user.put("sur", surNamae);
-                user.put("other_names",otherNames );
+                user.put("other_names", otherNames);
                 user.put("phone", phone);
-                user.put("address",address);
-                user.put("school",school);
+                user.put("address", address);
+                user.put("school", school);
 
                 progressDialog.show();
 
@@ -114,19 +119,17 @@ public class SetUpProfileActivity extends AppCompatActivity {
 //
 
 
-
-
-
                 db.collection("students").document(userUid).set(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
 
-//                                progressDialog.dismiss();
                                 progressDialog.setMessage("Preparing to Log In");
-                                Toast.makeText(SetUpProfileActivity.this,"Set up complete",Toast.LENGTH_SHORT).show();
-//                                startActivity(new Intent(SetUpProfileActivity.this,SignInActivity.class));
-//                                finish();
+                                Toast.makeText(SetUpProfileActivity.this, "Set up complete", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(SetUpProfileActivity.this, HomeActivity.class));
+                                finish();
+                                progressDialog.dismiss();
+
 
 //                                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 //
@@ -155,27 +158,37 @@ public class SetUpProfileActivity extends AppCompatActivity {
 
 
                                 progressDialog.dismiss();
-                                Toast.makeText(SetUpProfileActivity.this,"Set up failed",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SetUpProfileActivity.this, "Set up failed", Toast.LENGTH_SHORT).show();
 
 
                             }
                         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            Log.i("SetUp Activity ", " User not Null");
+            Log.i("email ", currentUser.getEmail());
+
+        } else {
+
+            Log.i("SetUp Activity ", " User is Null");
+
+
+        }
+    }
+
+    public void uploadImage(View view) {
+
+        Toast.makeText(this, "Upload profile Image", Toast.LENGTH_SHORT).show();
     }
 }

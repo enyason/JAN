@@ -28,9 +28,9 @@
 
             <ImageView
                 android:layout_marginBottom="20dp"
-                android:layout_width="70dp"
+                android:layout_width="100dp"
                 android:src="@drawable/jan_logo"
-                android:layout_height="70dp" />
+                android:layout_height="80dp" />
 
 
             <TextView
@@ -60,11 +60,7 @@
                 android:id="@+id/et_password_sign_in"/>
 
 
-
-
         </LinearLayout>
-
-
 
         <RelativeLayout
             android:layout_alignParentBottom="true"
@@ -76,6 +72,8 @@
                 android:layout_margin="5dp"
                 android:id="@+id/btn_sign_In"
                 android:text="Sign In"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

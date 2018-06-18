@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/cardview_light_background">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_pre_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Pre Survey?"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+          />
+
+
+        <TextView
+            android:layout_below="@id/tv_pre_test"
+            android:id="@+id/tv_question"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="Entrepreneurial behaviours includes?"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_question"
+            android:layout_margin="5dp">
+
+
+            <RadioButton
+                android:id="@+id/radio_a"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A. Solving problems" />
+
+            <RadioButton
+                android:id="@+id/radio_b"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B. Taking initiatives" />
+
+            <RadioButton
+                android:id="@+id/radio_c"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="c. Taking responsibility" />
+
+            <RadioButton
+                android:id="@+id/radio_d"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/btn_sign_out"
+                android:layout_alignBottom="@+id/btn_sign_out"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="D. All of above" />
+
+        </RadioGroup>
+
+        <Button
+
+            android:id="@+id/btn_submit_pre_survey"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/radio_group"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_rounded_corners"
+            android:text="Submit"
+
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

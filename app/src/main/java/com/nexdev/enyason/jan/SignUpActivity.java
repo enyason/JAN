@@ -67,11 +67,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                             Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
 
-                            buttonSignUp.setText("Proceed With Account Set Up");
+//                            buttonSignUp.setText("Proceed With Account Set Up");
 
-                            buttonSignUp.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+//                            buttonSignUp.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
 
                                     Intent intent = new Intent(SignUpActivity.this, SetUpProfileActivity.class);
                                     intent.putExtra("id",uid);
@@ -79,8 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     intent.putExtra("email",email);
                                     startActivity(intent);
                                     finish();
-                                }
-                            });
+//                                }
+//                            });
 //                            Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
 //                            startActivity(new Intent(SignUpActivity.this, Set.class));
 //                            finish();

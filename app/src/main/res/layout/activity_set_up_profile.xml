@@ -34,6 +34,7 @@
             android:layout_height="100dp">
 
             <ImageView
+                android:onClick="uploadImage"
                 android:src="@drawable/enya"
                 android:id="@+id/image_view_student_image"
                 android:layout_width="100dp"
@@ -73,6 +74,7 @@
 
 
             <TextView
+
                 android:fontFamily="sans-serif-medium"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"
@@ -83,7 +85,8 @@
 
 
             <EditText
-                android:text="test"
+                android:drawableLeft="@drawable/ic_person"
+                android:drawablePadding="5dp"
                 android:textColor="#000"
                 android:fontFamily="sans-serif-medium"
                 android:layout_width="match_parent"
@@ -92,7 +95,6 @@
                 android:id="@+id/et_sur_name_set_up"/>
 
             <EditText
-                android:text="test"
 
                 android:textColor="#000"
                 android:fontFamily="sans-serif-medium"
@@ -103,8 +105,9 @@
 
 
             <EditText
-                android:text="test"
 
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="5dp"
                 android:textColor="#000"
                 android:fontFamily="sans-serif-medium"
                 android:hint="phone"
@@ -114,8 +117,8 @@
                 android:id="@+id/et_phone_set_up"/>
 
             <EditText
-                android:text="test"
-
+                android:drawableLeft="@drawable/ic_location"
+                android:drawablePadding="5dp"
                 android:textColor="#000"
                 android:fontFamily="sans-serif-medium"
                 android:hint="address"
@@ -124,8 +127,8 @@
                 android:id="@+id/et_adress_set_up"/>
 
             <EditText
-                android:text="test"
-
+                android:drawableLeft="@drawable/ic_school"
+                android:drawablePadding="5dp"
                 android:textColor="#000"
                 android:fontFamily="sans-serif-medium"
                 android:hint="school"
@@ -146,6 +149,8 @@
         android:layout_width="match_parent"
         android:text="Set Up Account"
         android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
         android:layout_height="wrap_content" />
 
 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.nexdev.enyason.jan.CourseDetailActivity"
+    tools:showIn="@layout/activity_course_detail">
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/text_margin"-->
+    <!--android:text="@string/large_text" />-->
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        >
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_view_title_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="This is a Course by Jan"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_view_mentor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="Enya Emmanuel" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:id="@+id/text_view_number_enrolled"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="2"
+                    android:text="30 Enrolled"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_proceed_with_payment"
+                    android:layout_width="0dp"
+                    android:onClick="enrollForCourse"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="3"
+                    android:background="@color/cardview_dark_background"
+                    android:text="Enroll For This Course"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF" />
+
+
+
+            </LinearLayout>
+
+
+            <View
+                android:background="#cacaca"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"/>
+
+
+        </LinearLayout>
+
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="Course Descripton" />
+
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/text_view_description_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="This courae is about ..." />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</android.support.v4.widget.NestedScrollView>
