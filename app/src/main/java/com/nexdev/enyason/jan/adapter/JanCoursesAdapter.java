@@ -51,7 +51,7 @@ public class JanCoursesAdapter extends RecyclerView.Adapter<JanCoursesAdapter.Ja
         final JanCourses janCourses = janCoursesList.get(position);
 
         holder.tvTitle.setText(janCourses.getTitle());
-        holder.tvDuration.setText(janCourses.getDuration());
+        holder.tvDuration.setText(janCourses.getDuration()+" weeks");
 
 //        Picasso.get()
 //                .load(janCourses.getImageUrl())

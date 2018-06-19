@@ -61,7 +61,6 @@ public class WeekListCoursesAdapter extends RecyclerView.Adapter<WeekListCourses
         holder.tvTitle.setText(weekList.getLessonTitle());
         holder.tvDuration.setText(weekList.getCurrentWeek());
 
-        final Boolean testFlag = weekList.getIzPreTesttaken();
         final String lessonId = weekList.getLessonId();
 
 
@@ -74,7 +73,7 @@ public class WeekListCoursesAdapter extends RecyclerView.Adapter<WeekListCourses
             @Override
             public void onClick(View v) {
 
-                clickListener.onItemClicked(testFlag,position,lessonId);
+                clickListener.onItemClicked(position,lessonId);
 
             }
         });

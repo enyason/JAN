@@ -20,7 +20,7 @@ public class SignInActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
-    EditText etEmail,etPassword;
+    EditText etEmail, etPassword;
     Button buttonSignIn;
 
     ProgressDialog dialog;
@@ -30,7 +30,6 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -54,14 +53,15 @@ public class SignInActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString().trim();
                 String passWord = etPassword.getText().toString().trim();
 
-                firebaseAuth.signInWithEmailAndPassword(email,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.signInWithEmailAndPassword(email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+                        dialog.dismiss();
+
                         if (task.isSuccessful()) {
-                            dialog.dismiss();
                             Toast.makeText(SignInActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                             finish();
@@ -77,7 +77,6 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

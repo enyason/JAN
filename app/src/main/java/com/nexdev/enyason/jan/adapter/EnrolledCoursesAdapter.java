@@ -54,7 +54,7 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
         final EnrolledCourses  enrolledCourses = janCoursesList.get(position);
 
         holder.tvTitle.setText(enrolledCourses.getTitle());
-        holder.tvDuration.setText(enrolledCourses.getDuration());
+        holder.tvDuration.setText(enrolledCourses.getDuration() + "weeks");
 
 //        Picasso.get()
 //                .load(janCourses.getImageUrl())

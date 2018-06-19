@@ -73,10 +73,10 @@ public class JanCoursesFragment extends Fragment {
 
                     String title = documentSnapshot.getString("title");
                     String description = documentSnapshot.getString("description");
-                    String duration = documentSnapshot.getString("duration");
+                    double duration = documentSnapshot.getDouble("duration");
                     String courseId = documentSnapshot.getString("course_id");
 
-                    Log.i("Db ",courseId);
+                   // Log.i("Db ",courseId);
 
                             janCoursesList.add(new JanCourses(title,description,duration,courseId));
                             adapter.notifyDataSetChanged();

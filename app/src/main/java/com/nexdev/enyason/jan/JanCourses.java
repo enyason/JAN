@@ -10,11 +10,11 @@ public class JanCourses implements Serializable{
 
     String title;
     String description;
-    String duration;
+    double duration;
     String course_id;
 
 
-    public JanCourses(String title, String description, String duration, String course_id) {
+    public JanCourses(String title, String description, double duration, String course_id) {
         this.title = title;
         this.description = description;
         this.duration = duration;
@@ -36,7 +36,7 @@ public class JanCourses implements Serializable{
         return description;
     }
 
-    public String getDuration() {
+    public double getDuration() {
         return duration;
     }
 

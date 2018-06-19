@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/menu_enrolled_courses"
-        android:icon="@drawable/ic_book"
+        android:icon="@drawable/ic_school"
         android:title=" cousres" />
     <item
         android:id="@+id/menu_jan_courses"
@@ -20,8 +20,8 @@
 
     <item
         android:id="@+id/menu_profile"
-        android:icon="@drawable/ic_person"
-        android:title="profile" />
+        android:icon="@drawable/ic_more"
+        android:title="settings" />
 
 
 

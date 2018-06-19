@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,6 +38,8 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
     public static RecyclerView.Adapter adapter;
 
     List<WeekList> weekListCoursesList;
+    List<WeekListCheck> weekListCheck;
+    public static WeekListCheck weekListCheckFlag;
 
     Toolbar toolbar;
     ProgressBar progressBar;
@@ -46,9 +49,10 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
     public static String cid;
     public static String lessonId;
 
-    public  static WeekList weekList;
+    WeekList weekList;
 
     CollectionReference reference;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
         setSupportActionBar(toolbar);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
         Intent intent = getIntent();
@@ -71,15 +76,19 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
 
 
         weekListCoursesList = new ArrayList<>();
+        weekListCheck = new ArrayList<>();
 
 
+        getPreTestCheckList(); //get checks for weekly lessons
 
-       reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
 
                 if (task.isSuccessful()) {
+
                     progressBar.setVisibility(View.GONE);
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
 
@@ -87,15 +96,13 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
                         String title = documentSnapshot.getString("lesson_title");
                         String video = documentSnapshot.getString("videourl");
                         String lesson = documentSnapshot.getString("lesson");
-                    boolean isPreTestTaken = documentSnapshot.getBoolean("izPreTestTaken");
 
                         if (id != null) {
                             Log.i("id ", id);
 
                         }
 
-
-                        weekListCoursesList.add(new WeekList(id,title, video, lesson,isPreTestTaken));
+                        weekListCoursesList.add(new WeekList(id, title, video, lesson));
                         adapter.notifyDataSetChanged();
                     }
 
@@ -168,12 +175,10 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
 //        });
 
 
-
-
         recyclerViewEnrolledCousres = findViewById(R.id.recycler_view_week_list);
 
 
-        adapter = new WeekListCoursesAdapter(weekListCoursesList, this,this);
+        adapter = new WeekListCoursesAdapter(weekListCoursesList, this, this);
 
 
         recyclerViewEnrolledCousres.setLayoutManager(new LinearLayoutManager(this));
@@ -181,6 +186,29 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
         recyclerViewEnrolledCousres.setAdapter(adapter);
 
 
+    }
+
+    public void getPreTestCheckList() {
+
+
+        firebaseFirestore.collection("students").document(firebaseAuth.getUid())
+                .collection("week_list").document("course").collection(cid).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+
+                            boolean isPreTestTaken = documentSnapshot.getBoolean("izPreTestTaken");
+
+                            weekListCheck.add(new WeekListCheck(isPreTestTaken));
+
+                            Log.i("WeaekListCheck size ", "" + weekListCheck.size());
+
+                        }
+                    }
+                });
 
 
     }
@@ -188,7 +216,6 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
     @Override
     protected void onStart() {
         super.onStart();
-
 
 
 //
@@ -262,7 +289,7 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -272,7 +299,7 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
         switch (item.getItemId()) {
 
             case R.id.menu_mentor:
-                startActivity(new Intent(this,MentorActivity.class));
+                startActivity(new Intent(this, MentorActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -284,7 +311,7 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
     }
 
     @Override
-    public void onItemClicked(Boolean testFlag, int itemId, String lessonId) {
+    public void onItemClicked(int itemId, String lessonId) {
 
         this.lessonId = lessonId;
 
@@ -298,18 +325,23 @@ public class LearnActivity extends AppCompatActivity implements CustomClickListe
 //            }
 //        });
 
-            weekList = weekListCoursesList.get(itemId);
-        if (testFlag) {
 
-            Toast.makeText(this,lessonId,Toast.LENGTH_SHORT).show();
+        weekListCheckFlag = weekListCheck.get(itemId);
 
-            Intent intent = new Intent(LearnActivity.this,ClassContentActivity.class);
-            intent.putExtra("videoUrl",weekList.getVideoUrl());
+        Log.i("flag1", "" + (weekListCheckFlag.getIzPreTesttaken()));
 
+
+        weekList = weekListCoursesList.get(itemId);
+        if (weekListCheckFlag.getIzPreTesttaken()) {
+
+            Toast.makeText(this, lessonId, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(LearnActivity.this, ClassContentActivity.class);
+            intent.putExtra("videoUrl", weekList.getVideoUrl());
             startActivity(intent);
 
         } else {
-            Toast.makeText(this,lessonId,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, lessonId, Toast.LENGTH_SHORT).show();
             showEditDialog();
 
         }

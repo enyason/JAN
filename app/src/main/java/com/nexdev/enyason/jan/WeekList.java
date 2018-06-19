@@ -10,13 +10,11 @@ public class WeekList {
     String lessonTitle;
     String currentWeek;
     String lessonId;
-    boolean izPreTesttaken;
 
-    public WeekList(String lessonId,String lessonTitle,String videoUrl, String currentWeek,boolean izPreTesttaken) {
+    public WeekList(String lessonId,String lessonTitle,String videoUrl, String currentWeek) {
         this.videoUrl = videoUrl;
         this.lessonTitle = lessonTitle;
         this.currentWeek = currentWeek;
-        this.izPreTesttaken = izPreTesttaken;
         this.lessonId = lessonId;
 
     }
@@ -38,12 +36,4 @@ public class WeekList {
         return lessonId;
     }
 
-    public boolean getIzPreTesttaken() {
-        return izPreTesttaken;
-    }
-
-
-    public void setIzPreTesttaken(boolean izPreTesttaken) {
-        this.izPreTesttaken = izPreTesttaken;
-    }
 }

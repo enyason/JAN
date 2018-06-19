@@ -19,6 +19,7 @@ import com.nexdev.enyason.jan.fragment.ProfileFragment;
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +28,24 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
         mAuth = FirebaseAuth.getInstance();
 
+        currentUser = mAuth.getCurrentUser();
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view_home);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
 
         //load default fragment on starting
 
-        loadFragment(new EnrolledCoursesFragment());
+        if (currentUser != null) {
+            loadFragment(new EnrolledCoursesFragment());
+
+        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-    }
 
+        Log.i("onCreate ", "main activity created");
+
+    }
 
 
     @Override
@@ -44,23 +53,23 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         super.onStart();
 
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            Log.i("Home Activity ", " User not Null");
-            Log.i("email ",currentUser.getEmail());
+            Log.i("Home Activity on Start ", " User not Null");
+            Log.i("email ", currentUser.getEmail());
 
         } else {
 
-            Log.i("Home Activity ", " User is Null");
-            startActivity(new Intent(HomeActivity.this,LandingActivity.class));
+            Log.i("onStart ", "main activity started");
 
+            Log.i("Home Activity ", " User is Null");
+            startActivity(new Intent(HomeActivity.this, LandingActivity.class));
+            finish();
 
 
         }
 
     }
-
 
 
     private boolean loadFragment(Fragment fragment) {
@@ -95,6 +104,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.menu_profile:
                 fragment = new ProfileFragment();
+//               startActivity(new Intent(HomeActivity.this,SettingsActivity.class));
                 break;
         }
 

@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,9 +27,11 @@ public class ProfileFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
 
-    Button button;
+    TextView button;
 
     ProgressDialog progressDialog;
+
+    LinearLayout layoutLogOut;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,21 +49,14 @@ public class ProfileFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Signing out please wait...");
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        layoutLogOut = view.findViewById(R.id.layout5);
+
+        layoutLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                progressDialog.show();
-
-                try {
-                    Thread.sleep(3000);
-                    signOut();
-                    progressDialog.dismiss();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
+                signOut();
 
 
             }

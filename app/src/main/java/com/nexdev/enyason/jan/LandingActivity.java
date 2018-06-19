@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,10 +35,18 @@ public class LandingActivity extends AppCompatActivity {
     DocumentReference janCoursesRef;
     CollectionReference jaCouresWeekListRef;
 
+
+    View mDecorView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+
+
+        mDecorView = getWindow().getDecorView();
+
+        hideSystemUI();
 
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -44,6 +54,53 @@ public class LandingActivity extends AppCompatActivity {
         jaCouresWeekListRef = firebaseFirestore.collection("week_list").document("courses").collection("c3");
 
         firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+
+    public void goToSignInPage(View view) {
+        startActivity(new Intent(LandingActivity.this, SignInActivity.class));
+
+//        updateStudent();
+    }
+
+
+    public void updateStudent() {
+
+
+//        Map<String,Object> dMap = new HashMap<>();
+////////
+//        dMap.put("course_title", "Entrepreneurial Studies");
+//        dMap.put("number_of_lessons_taken", 0);
+//        dMap.put("number_of_lessons_left",7);
+//        dMap.put("progress_percent",0);
+//
+//
+//        firebaseFirestore.collection("students").document(firebaseAuth.getUid()).collection("course_progress")
+//                .document("c2").set(dMap);
+
+        firebaseFirestore.collection("students").document(firebaseAuth.getUid()).collection("course_progress")
+                .document("c2").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    String title = document.getString("course_title");
+//                    String title = document.getString("course_title");
+
+                    Double i = document.getDouble("number_of_lessons_left");
+
+
+                    Log.i("Db", "" + i);
+
+                }
+//
+
+
+            }
+        });
     }
 
 
@@ -67,47 +124,45 @@ public class LandingActivity extends AppCompatActivity {
 //
 
 
-        Map<String,Object> preTest = new HashMap<>();
+//        Map<String,Object> preTest = new HashMap<>();
+//
+//        preTest.put("a","it is a ");
+//        preTest.put("b","it is b");
+//        preTest.put("c","it is c");
+//        preTest.put("d","it is d");
+//
+//////
+//        Map<String, Object> weekListMap = new HashMap<>();
+//////
+//        weekListMap.put("lesson_title", "Introduction to Entrepreneurship");
+//        weekListMap.put("lesson", "lesson 01");
+//        weekListMap.put("description", "2 weeks");
+//        weekListMap.put("videourl", "youtube.com");
+//        weekListMap.put("What is Jan",preTest);
+//
+//        Map<String, Object> weekListMap1 = new HashMap<>();
+//////
+//        weekListMap1.put("lesson_title", "Introduction to Entrepreneurship");
+//        weekListMap1.put("lesson", "lesson 02");
+//        weekListMap1.put("description", "another one");
+//        weekListMap1.put("videourl", "youtube.com");
+//        weekListMap1.put("What is Jan",preTest);
+//
+//
+//        Map<String, Object> weekListMap2 = new HashMap<>();
+//////
+//        weekListMap2.put("lesson_title", "Introduction to Entrepreneurship");
+//        weekListMap2.put("lesson", "Oh yes");
+//        weekListMap2.put("description", "2 weeks");
+//        weekListMap2.put("videourl", "youtube.com");
+//        weekListMap2.put("What is Jan",preTest);
 
-        preTest.put("a","it is a ");
-        preTest.put("b","it is b");
-        preTest.put("c","it is c");
-        preTest.put("d","it is d");
 
-////
-        Map<String, Object> weekListMap = new HashMap<>();
-////
-        weekListMap.put("lesson_title", "Introduction to Entrepreneurship");
-        weekListMap.put("lesson", "lesson 01");
-        weekListMap.put("description", "2 weeks");
-        weekListMap.put("videourl", "youtube.com");
-        weekListMap.put("What is Jan",preTest);
-
-        Map<String, Object> weekListMap1 = new HashMap<>();
-////
-        weekListMap1.put("lesson_title", "Introduction to Entrepreneurship");
-        weekListMap1.put("lesson", "lesson 02");
-        weekListMap1.put("description", "another one");
-        weekListMap1.put("videourl", "youtube.com");
-        weekListMap1.put("What is Jan",preTest);
-
-
-        Map<String, Object> weekListMap2 = new HashMap<>();
-////
-        weekListMap2.put("lesson_title", "Introduction to Entrepreneurship");
-        weekListMap2.put("lesson", "Oh yes");
-        weekListMap2.put("description", "2 weeks");
-        weekListMap2.put("videourl", "youtube.com");
-        weekListMap2.put("What is Jan",preTest);
-
-
-
-        jaCouresWeekListRef.add(weekListMap);
-
-        jaCouresWeekListRef.add(weekListMap1);
-
-        jaCouresWeekListRef.add(weekListMap2);
-
+//        jaCouresWeekListRef.add(weekListMap);
+//
+//        jaCouresWeekListRef.add(weekListMap1);
+//
+//        jaCouresWeekListRef.add(weekListMap2);
 
 
 //        firebaseFirestore.collection("jan_courses").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -151,12 +206,10 @@ public class LandingActivity extends AppCompatActivity {
 //        Map<String,Object> preTest = new HashMap<>();
 
 
-
-
 //        firebaseFirestore.collection("enrolled_courses").document(firebaseAuth.getUid()).collection("my_courses").add(dMap);
 
 
-//        startActivity(new Intent(LandingActivity.this,SignUpActivity.class));
+        startActivity(new Intent(LandingActivity.this, SignUpActivity.class));
 //        firebaseFirestore.collection("course").get()
 //                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
 //                    @Override
@@ -186,8 +239,20 @@ public class LandingActivity extends AppCompatActivity {
 
     }
 
-    public void goToSignInPage(View view) {
-        startActivity(new Intent(LandingActivity.this, SignInActivity.class));
 
+    // This snippet hides the system bars.
+    private void hideSystemUI() {
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        mDecorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
+
+
 }

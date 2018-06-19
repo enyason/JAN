@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,12 +45,14 @@ public class EnrolledCoursesFragment extends Fragment {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
 
+    TextView textViewEmpty;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        return inflater.inflate(R.layout.fragment_enrolled_courses, null);
+        return inflater.inflate(R.layout.fragment_enrolled_courses,container,false);
 
     }
 
@@ -65,6 +69,7 @@ public class EnrolledCoursesFragment extends Fragment {
 
         recyclerViewEnrolledCousres = view.findViewById(R.id.recycler_view_enrolled_courses);
         progressBar = view.findViewById(R.id.pb_enrolled_courses);
+        textViewEmpty = view.findViewById(R.id.tv_empty_state);
 
 
         firebaseFirestore.collection("enrolled_courses").document(firebaseAuth.getUid())
@@ -81,7 +86,7 @@ public class EnrolledCoursesFragment extends Fragment {
 
                         String title = documentSnapshot.getString("title");
                         String description = documentSnapshot.getString("description");
-                        String duration = documentSnapshot.getString("duration");
+                        double duration = documentSnapshot.getDouble("duration");
                         String courseId = documentSnapshot.getString("course_id");
                         Log.i("Db ", title);
 
@@ -90,8 +95,16 @@ public class EnrolledCoursesFragment extends Fragment {
                     }
 
 
+                    if (enrolledCoursesList != null && enrolledCoursesList.size() ==0) {
+
+                        textViewEmpty.setVisibility(View.VISIBLE);
+
+                    }
+
+
                 } else {
                     progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Could not fetch data", Toast.LENGTH_LONG).show();;
                 }
 
             }

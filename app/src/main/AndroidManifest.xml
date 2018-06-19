@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LandingActivity"
-            android:exported="true" />
+            android:exported="true"
+            />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".SetUpProfileActivity"
@@ -30,10 +31,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CourseDetailActivity" android:exported="true" />
-        <activity android:name=".LearnActivity" android:exported="true"/>
+        <activity
+            android:name=".CourseDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LearnActivity"
+            android:exported="true" />
         <activity android:name=".ClassContentActivity" />
-        <activity android:name=".MentorActivity"></activity>
+        <activity android:name=".MentorActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

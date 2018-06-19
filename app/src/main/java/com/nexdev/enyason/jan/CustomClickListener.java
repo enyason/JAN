@@ -6,5 +6,5 @@ package com.nexdev.enyason.jan;
 
 public interface CustomClickListener {
 
-    void onItemClicked(Boolean testFlag, int itemId, String lessonId);
+    void onItemClicked(int itemId, String lessonId);
 }

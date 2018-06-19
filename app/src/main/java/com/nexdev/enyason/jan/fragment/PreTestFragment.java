@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,8 +41,14 @@ public class PreTestFragment extends DialogFragment {
     private RadioButton radioButton;
 
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
 
     DocumentReference documentReference;
+
+    DocumentReference reference;
+
+    DocumentReference lessontakenReference;
+
     public PreTestFragment() {
     }
 
@@ -54,11 +64,12 @@ public class PreTestFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_pre_test,container,false);
+        View view = inflater.inflate(R.layout.fragment_pre_test, container, false);
 
         getDialog().setCanceledOnTouchOutside(false);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         return view;
     }
 
@@ -70,96 +81,164 @@ public class PreTestFragment extends DialogFragment {
         progressDialog.setMessage("uploading response...");
         progressDialog.setCanceledOnTouchOutside(false);
 
-         radioGroup = view.findViewById(R.id.radio_group);
+        radioGroup = view.findViewById(R.id.radio_group);
 
 
-       buttonSubmitPreTest = view.findViewById(R.id.btn_submit_pre_survey);
+        buttonSubmitPreTest = view.findViewById(R.id.btn_submit_pre_survey);
 
         documentReference = firebaseFirestore.collection("week_list").document("courses").collection(LearnActivity.cid).document(LearnActivity.lessonId);
 
 
-       buttonSubmitPreTest.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        reference = firebaseFirestore.collection("students").document(firebaseAuth.getUid())
+                .collection("week_list").document("course").collection(LearnActivity.cid).document(LearnActivity.lessonId);
 
 
-               // get selected radio button from radioGroup
-               int selectedId = radioGroup.getCheckedRadioButtonId();
-
-               // find the radiobutton by returned id
-               radioButton = (RadioButton)view. findViewById(selectedId);
-
-               final String option = radioButton.getText().toString();
+        lessontakenReference = firebaseFirestore.collection("students").
+                document(firebaseAuth.getUid()).collection("course_progress")
+                .document(LearnActivity.cid);
 
 
-               progressDialog.show();
+        buttonSubmitPreTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
+                // get selected radio button from radioGroup
+                int selectedId = radioGroup.getCheckedRadioButtonId();
 
-               documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                   @Override
-                   public void onSuccess(DocumentSnapshot documentSnapshot) {
+                // find the radiobutton by returned id
+                radioButton = (RadioButton) view.findViewById(selectedId);
 
-                       if (documentSnapshot.exists()) {
-
-                           String preTestAnswer = documentSnapshot.getString("preTest");
-
-
-                           if (option.contains(preTestAnswer)) {
-
-                               documentReference.update("izPreTestTaken",true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                   @Override
-                                   public void onSuccess(Void aVoid) {
-
-                                       LearnActivity.weekList.setIzPreTesttaken(true);
-                                       LearnActivity.adapter.notifyDataSetChanged();
-
-                                       progressDialog.dismiss();
+                final String option = radioButton.getText().toString();
 
 
-                                       Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
-                                       buttonSubmitPreTest.setText("Done");
-
-                                       buttonSubmitPreTest.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View v) {
-
-                                               getDialog().dismiss();
-                                           }
-                                       });
-
-                                   }
-                               });
+                progressDialog.show();
 
 
+                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        if (documentSnapshot.exists()) {
+
+                            String preTestAnswer = documentSnapshot.getString("preTest");
 
 
-                           } else {
-                               progressDialog.dismiss();
-                               Toast.makeText(getContext(),"Incorrect, try again",Toast.LENGTH_SHORT).show();
-
-                           }
+                            if (option.contains(preTestAnswer)) {
 
 
+//
+//                               documentReference.update("izPreTestTaken",true).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                   @Override
+//                                   public void onSuccess(Void aVoid) {
+//
+//                                       LearnActivity.weekListCheckFlag.setIzPreTesttaken(true);
+//                                       LearnActivity.adapter.notifyDataSetChanged();
+//
+//                                       progressDialog.dismiss();
+//
+//
+//                                       Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
+//                                       buttonSubmitPreTest.setText("Done");
+//
+//                                       buttonSubmitPreTest.setOnClickListener(new View.OnClickListener() {
+//                                           @Override
+//                                           public void onClick(View v) {
+//
+//                                               getDialog().dismiss();
+//                                           }
+//                                       });
+//
+//                                   }
+//                               });
 
-                       }
 
-                   }
-               }).addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e) {
+                                reference.update("izPreTestTaken", true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
 
-                       Toast.makeText(getContext(),"Error! please try again",Toast.LENGTH_SHORT).show();
-                       progressDialog.dismiss();
-                   }
-               });
+                                        LearnActivity.weekListCheckFlag.setIzPreTesttaken(true);
+
+                                        Log.i("flag2", "" + LearnActivity.weekListCheckFlag.getIzPreTesttaken());
 
 
 
+                                        lessontakenReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-           }
-       });
+                                                if (task.isSuccessful()) {
 
+                                                    DocumentSnapshot result = task.getResult();
+
+                                                    double lessonsTaken = result.getDouble("number_of_lessons_taken");
+
+                                                    lessonsTaken++;
+
+
+                                                    lessontakenReference.update("number_of_lessons_taken",lessonsTaken).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                            progressDialog.dismiss();
+
+                                                            if (task.isSuccessful()) {
+
+
+                                                                Toast.makeText(getContext(), "Correct", Toast.LENGTH_SHORT).show();
+                                                                buttonSubmitPreTest.setText("Done");
+
+                                                                buttonSubmitPreTest.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+
+                                                                        getDialog().dismiss();
+                                                                    }
+                                                                });
+
+                                                            }
+
+                                                        }
+                                                    });
+
+
+                                                }
+
+
+                                            }
+                                        });
+
+
+//
+//
+
+
+                                    }
+                                });
+
+
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(getContext(), "Incorrect, try again", Toast.LENGTH_SHORT).show();
+
+                            }
+
+
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(getContext(), "Error! please try again", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
+
+
+            }
+        });
 
 
     }

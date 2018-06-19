@@ -70,7 +70,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/btn_proceed_with_payment"
+                    android:id="@+id/btn_enroll_course"
                     android:layout_width="0dp"
                     android:onClick="enrollForCourse"
                     android:layout_height="wrap_content"
